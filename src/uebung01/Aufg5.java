@@ -15,6 +15,7 @@ public class Aufg5 {
 				return s;
 			}
 		}).glied(5));
+		System.out.println("eine Änderung");
 		
 	}
 
