@@ -3,10 +3,31 @@ package uebung01;
 public class Aufg5 {
 
 	public static void main(String[] args) {
-		/*
-		System.out.println(new FolgeA(5, 5, 5).glied(3));
 		System.out.println(new FolgeP().glied(5));
-		*/
+		System.out.println(new FolgePRek().glied(5));
+		
+		System.out.println(new FolgeFRek(new Folge() {
+			@Override
+			public double glied(int n) {
+				return helper(n,n);
+			}
+			private double helper(int n, int k) {
+				if(n==0)return 0;
+				else return helper(n-1,k)+2*k*((n+1)-1);
+			}
+		}).glied(5));
+		
+		System.out.println(new FolgeF(new Folge() {
+			@Override
+			public double glied(int n) {
+				return helper(n,n);
+			}
+			private double helper(int n, int k) {
+				if(n==0)return 0;
+				else return helper(n-1,k)+2*k*((n+1)-1);
+			}
+		}).glied(5));
+		
 		System.out.println(new FolgeF(new Folge() {
 			@Override
 			public double glied(int n) {
@@ -15,14 +36,27 @@ public class Aufg5 {
 				return s;
 			}
 		}).glied(5));
-		System.out.println("eine Änderung");
-		
 	}
 
 }
 
 interface Folge {
 	public double glied(int n);
+}
+
+class FolgeFRek implements Folge {
+	private Folge a;
+	
+	public FolgeFRek(Folge a){
+		this.a = a;
+	}
+
+	@Override
+	public double glied(int n) {
+		if(n==0) return 0;
+		else return glied(n-1) + this.a.glied(n);
+	}
+	
 }
 
 class FolgeF implements Folge {
@@ -37,44 +71,81 @@ class FolgeF implements Folge {
 		double sum = 0;
 		for(int i = 0;i<=n;i++){
 			sum = (double) (sum + this.a.glied(i));
-			System.out.println(sum);
 		}
 		return sum;
 	}
 	
 }
 
-class FolgeS implements Folge {
-	private int i;
-	
-	public FolgeS(int i){
-		this.i = i;
+class FolgePNeuRek implements Folge {
+	@Override
+	public double glied(int n) {
+		return helper(n,n);
 	}
 
+	private double helper(int n, int k) {
+		if(n==0)return 0;
+		else return helper(n-1,k)+2*k*(n-1);
+	}
+}
+
+class FolgePNeu implements Folge {
 	@Override
 	public double glied(int n) {
 		int sum = 0;
-		for(int i = 0; i <= n; i++){
-			sum = sum + this.i + this.i;
+		for(int k=0; k<n;k++){
+			sum = sum + 2*n*k;
 		}
 		return sum;
 	}
-	
+}
+
+class FolgePRek implements Folge {
+	@Override
+	public double glied(int n) {
+		if(n == 1)return 0;
+		else return glied(n-1) + helper2(n,n);
+	}
+
+	private int helper2(int n, int k) {
+		if(n==0)return 0;
+		else return helper2(n-1,k)+2*k*(n-1);		
+	}
 }
 
 class FolgeP implements Folge {
 	@Override
 	public double glied(int n) {
 		int sum = 0;
-		for (int i = 1; i <= n; i++){
-			
-			for(int k=0; k<=i;k++){
+		for (int i = 0; i<=n; i++){			
+			for(int k=0; k<i;k++){
 				sum = sum + 2*i*k;
 			}
 		}	
 		return sum;
 	}
-	
+}
+
+class FolgeSRek implements Folge {
+	@Override
+	public double glied(int n) {
+		if(n == 1){
+			return 1;
+		}else {
+			return glied(n-1) + n;
+		}		
+	}	
+}
+
+class FolgeS implements Folge {
+	@Override
+	public double glied(int n) {
+		int sum = 0;
+		for(int i = 0; i <= n; i++){
+			sum += i;
+		}
+		return sum;
+	}	
 }
 
 class FolgeA implements Folge {
