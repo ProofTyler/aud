@@ -30,22 +30,17 @@ public class InsertionSort {
 				new Student("Bernd", 6)
 			
 		};
-		/*
+		
 		InsertionSort.sort(a,
 				(a1,a2) -> {
 					return a1.age - a2.age;
 				});
-		*/
-		Arrays.sort(
-				a,
-				(a1,a2) -> {
-					return a1.age - a2.age;
-				});
+		
 		for(int i = 0; i<a.length;i++){
 			System.out.print(a[i].age);
 		}
 	}
-	//0138725495
+	//330172
 	
 	private static void sort(Student[] a, Comparator<Student> c) {
 		final int n = a.length;		
@@ -53,8 +48,7 @@ public class InsertionSort {
 			int j = 0;
 			while(j<i && c.compare(a[j], a[i]) < 0) {
 				j++;
-			}
-			
+			}			
 			if(j!=i){
 				Student t = a[i];
 				for(int k=i;k>j;k--){

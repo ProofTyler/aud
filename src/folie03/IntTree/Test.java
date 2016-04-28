@@ -6,6 +6,7 @@ public class Test {
 		IntTree tree = new Node(
 				new Node(new Leaf(3), new Leaf(6)), 
 				new Node(new Leaf(1), new Leaf(5)) );
+		
 		System.out.println(Int_Trees.sum(tree));
 	}
 
